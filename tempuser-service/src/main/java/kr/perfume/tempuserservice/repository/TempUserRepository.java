@@ -1,6 +1,7 @@
 package kr.perfume.tempuserservice.repository;
 
 import kr.perfume.tempuserservice.persistence.TempUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 

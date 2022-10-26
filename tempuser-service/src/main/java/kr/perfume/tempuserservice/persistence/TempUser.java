@@ -1,8 +1,14 @@
 package kr.perfume.tempuserservice.persistence;
 
+import kr.perfume.api.core.enums.ProviderType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,7 +44,7 @@ public class TempUser {
 	private String profileImageUrl;
 
 	@Builder
-	public PreJoinUser(String userUuid, String userId, String username, String email, ProviderType providerType,
+	public TempUser(String userUuid, String userId, String username, String email, ProviderType providerType,
 		String profileImageUrl) {
 		this.userUuid = userUuid;
 		this.userId = userId;
@@ -46,26 +52,6 @@ public class TempUser {
 		this.email = email;
 		this.providerType = providerType;
 		this.profileImageUrl = profileImageUrl;
-	}
-
-	public PreJoinUser(OAuth2UserInfo info, ProviderType providerType, String uuid) {
-		this.userUuid = uuid;
-		this.userId = info.getId();
-		this.username = info.getName();
-		this.email = info.getEmail();
-		this.providerType = providerType;
-		this.profileImageUrl = info.getImageUrl();
-	}
-
-	public SocialLoginResponseDto toSocialLoginResponseDto() {
-		return new SocialLoginResponseDto(
-			this.userUuid,
-			this.email,
-			this.username,
-			this.providerType,
-			this.profileImageUrl
-		);
-
 	}
 
 }

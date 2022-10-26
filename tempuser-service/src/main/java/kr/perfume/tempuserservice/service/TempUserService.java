@@ -1,5 +1,6 @@
 package kr.perfume.tempuserservice.service;
 
+import kr.perfume.api.core.tempuser.TempUserDto;
 import kr.perfume.tempuserservice.persistence.TempUser;
 import kr.perfume.tempuserservice.repository.TempUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class TempUserService {
 
     private final TempUserRepository tempUserRepository;
 
-    public TempUserDto forceSaveTempUser(String email) {
-        Optional<TempUser> user = tempUserRepository.findByUserId(email);
+    public TempUserDto forceSaveTempUser(TempUserDto saveRequestDto) {
+        Optional<TempUser> user = tempUserRepository.findByUserId(saveRequestDto.getUserId());
         return null;
     }
 }

@@ -20,4 +20,15 @@ public class UserDto {
     private String profileImage;
     private String password;
 
+    @Builder
+    public UserDto(Long userSeq, String userId, String email, String name, ProviderType providerType, RoleType roleType, String profileImage, String password) {
+        this.userSeq = userSeq;
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+        this.providerType = providerType;
+        this.roleType = roleType;
+        this.profileImage = profileImage;
+        this.password = password;
+    }
 }

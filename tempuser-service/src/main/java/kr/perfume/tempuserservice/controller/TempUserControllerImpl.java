@@ -19,4 +19,9 @@ public class TempUserControllerImpl implements TempUserController {
         return tempUserService.forceSaveTempUser(saveRequestDto);
     }
 
+    @Override
+    public TempUserDto getTempUserByTempUserId(String tempUserId) {
+        return tempUserService.getTempUserByTempUserId(tempUserId);
+    }
+
 }

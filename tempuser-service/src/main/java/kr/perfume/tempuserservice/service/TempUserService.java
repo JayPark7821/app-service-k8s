@@ -26,4 +26,8 @@ public class TempUserService {
             return savedTempUser.toDto();
         }
     }
+
+    public TempUserDto getTempUserByTempUserId(String tempUserId) {
+        return tempUserRepository.findById(tempUserId).map(TempUser::toDto).orElse(null);
+    }
 }

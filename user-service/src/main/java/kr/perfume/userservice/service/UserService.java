@@ -20,4 +20,8 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(email);
         return user.map(User::toDto).orElse(null);
     }
+
+	public UserDto saveUser(UserDto userDto) {
+		return userRepository.save(new User(userDto)).toDto();
+	}
 }

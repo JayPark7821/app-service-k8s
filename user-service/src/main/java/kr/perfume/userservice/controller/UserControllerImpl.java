@@ -19,4 +19,9 @@ public class UserControllerImpl implements UserController {
         return userService.getUserByEmail(email);
     }
 
+    @Override
+    public UserDto saveUser(UserDto userDto) {
+        return userService.saveUser(userDto);
+    }
+
 }

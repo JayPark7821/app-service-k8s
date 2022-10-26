@@ -1,6 +1,7 @@
 package kr.perfume.authservice.service;
 
 import kr.perfume.api.composite.auth.AuthResponseDto;
+import kr.perfume.api.composite.auth.JoinRequestDto;
 import kr.perfume.api.core.enums.ProviderType;
 import kr.perfume.api.core.tempuser.TempUserDto;
 import kr.perfume.api.core.user.UserDto;
@@ -41,6 +42,37 @@ public class AuthService {
         } else {
             TempUserDto tempUserDto = savePreJoinUser(userInfo, providerType);
             return new AuthResponseDto(tempUserDto);
+        }
+    }
+
+    public AuthResponseDto join(JoinRequestDto requestDto) {
+        UserDto savedUser = authCompositeIntegration.getUserByEmail(requestDto.getEmail());
+        if (savedUser != null) {
+            throw new PerfumeApplicationException(ErrorCode.USER_ALREADY_JOINED);
+        }
+
+        TempUserDto tempUser = authCompositeIntegration.getTempUserByTempUserId(requestDto.getTempUserId());
+        if (tempUser == null) {
+            throw new PerfumeApplicationException(ErrorCode.INVALID_JOIN_DATA);
+        }
+
+        if (requestDto.getEmail() != tempUser.getEmail()) {
+            throw new PerfumeApplicationException(ErrorCode.INVALID_JOIN_DATA);
+        }
+
+        UserDto user = UserDto.builder()
+            .userId(tempUser.getUserId())
+            .email(tempUser.getEmail())
+            .name(tempUser.getUsername())
+            .profileImage(tempUser.getProfileImageUrl())
+            .providerType(tempUser.getProviderType())
+            .password(generateTempPw())
+            .build();
+
+        if (authCompositeIntegration.saveUser(user) !=null) {
+            return new AuthResponseDto(user, "access-token", "refresh-token");
+        } else {
+            throw new PerfumeApplicationException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
 

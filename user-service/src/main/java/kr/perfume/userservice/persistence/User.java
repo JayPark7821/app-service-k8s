@@ -77,6 +77,17 @@ public class User {
         this.roleType = roleType;
     }
 
+    public User(UserDto userDto) {
+        this.userId = userDto.getUserId();
+        this.username = userDto.getName();
+        this.password = userDto.getPassword();
+        this.email = userDto.getEmail();
+        this.emailVerifiedYn = "Y";
+        this.profileImageUrl = userDto.getProfileImage();
+        this.providerType = userDto.getProviderType();
+        this.roleType = userDto.getRoleType();
+    }
+
     public UserDto toDto() {
         return UserDto.builder()
                 .userSeq(this.getUserSeq())

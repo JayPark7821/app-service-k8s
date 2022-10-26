@@ -58,10 +58,30 @@ public class AuthCompositeIntegration implements UserController, TempUserControl
     }
 
     @Override
+    public UserDto saveUser(UserDto userDto) {
+        try {
+            String requestUrl = userServiceUrl + "/user";
+            return restTemplate.postForObject(requestUrl, userDto, UserDto.class);
+        } catch (HttpClientErrorException ex) {
+            throw new PerfumeApplicationException(ErrorCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public TempUserDto forceSaveTempUser(TempUserDto tempUserDto) {
         try {
             String requestUrl = tempUserServiceUrl + "/force-save";
             return restTemplate.postForObject(requestUrl, tempUserDto, TempUserDto.class);
+        } catch (HttpClientErrorException ex) {
+            throw new PerfumeApplicationException(ErrorCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public TempUserDto getTempUserByTempUserId(String tempUserId) {
+        try {
+            String requestUrl = tempUserServiceUrl + "/tempuser/" + tempUserId;
+            return restTemplate.getForObject(requestUrl, TempUserDto.class);
         } catch (HttpClientErrorException ex) {
             throw new PerfumeApplicationException(ErrorCode.INTERNAL_SERVER_ERROR);
         }

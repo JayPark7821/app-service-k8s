@@ -1,0 +1,6 @@
+rootProject.name = 'perfume-app'
+
+include 'api'
+include 'utils'
+include 'user-service'
+include 'tempuser-service'

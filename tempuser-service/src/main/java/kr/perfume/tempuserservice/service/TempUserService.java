@@ -17,7 +17,13 @@ public class TempUserService {
     private final TempUserRepository tempUserRepository;
 
     public TempUserDto forceSaveTempUser(TempUserDto saveRequestDto) {
-        Optional<TempUser> user = tempUserRepository.findByUserId(saveRequestDto.getUserId());
-        return null;
+        Optional<TempUser> tempUser = tempUserRepository.findByUserId(saveRequestDto.getUserId());
+        if (tempUser.isPresent()) {
+            tempUser.get().updateTempUser(saveRequestDto);
+            return saveRequestDto;
+        }else{
+            TempUser savedTempUser = tempUserRepository.save(new TempUser(saveRequestDto));
+            return savedTempUser.toDto();
+        }
     }
 }

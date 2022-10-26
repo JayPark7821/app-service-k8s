@@ -12,3 +12,9 @@ app:
 logging:
   level:
     root: INFO
+
+google:
+  clientId: test
+
+
+

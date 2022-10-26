@@ -1,7 +1,7 @@
 package kr.perfume.utils.exception.handler;
 
 import kr.perfume.utils.exception.PerfumeApplicationException;
-import kr.perfume.utils.http.ApiResponse;
+import kr.perfume.utils.http.FailApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
-    private ResponseEntity<ApiResponse<Void>> buildResponseEntity(HttpStatus errorCode, String message) {
+    private ResponseEntity<FailApiResponse<Void>> buildResponseEntity(HttpStatus errorCode, String message) {
         return ResponseEntity.status(errorCode)
-                .body(ApiResponse.fail(errorCode, message, null));
+                .body(FailApiResponse.fail(errorCode, message));
     }
 
     @ExceptionHandler(PerfumeApplicationException.class)
-    public ResponseEntity<ApiResponse<Void>> handleOkrApplicationException(PerfumeApplicationException ex) {
+    public ResponseEntity<FailApiResponse<Void>> handleOkrApplicationException(PerfumeApplicationException ex) {
         return buildResponseEntity(ex.getErrorCode(), ex.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ApiResponse<Void>> applicationHandler(RuntimeException ex) {
+    public ResponseEntity<FailApiResponse<Void>> applicationHandler(RuntimeException ex) {
         return buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
 }

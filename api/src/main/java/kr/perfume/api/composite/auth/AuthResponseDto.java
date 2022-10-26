@@ -2,6 +2,7 @@ package kr.perfume.api.composite.auth;
 
 import kr.perfume.api.core.enums.ProviderType;
 import kr.perfume.api.core.enums.RoleType;
+import kr.perfume.api.core.tempuser.TempUserDto;
 import kr.perfume.api.core.user.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,13 +31,10 @@ public class AuthResponseDto {
         this.refreshToken = refreshToken;
     }
 
-
-    public AuthResponseDto(String tempUserId, String email, String name, ProviderType providerType,
-                           String profileImage ) {
-        this.tempUserId = tempUserId;
-        this.email = email;
-        this.name = name;
-        this.providerType = providerType;
-        this.profileImage = profileImage;
+    public AuthResponseDto(TempUserDto tempUserDto) {
+        this.tempUserId = tempUserDto.getUserUuid();
+        this.email = tempUserDto.getEmail();
+        this.name = tempUserDto.getUsername();
+        this.providerType = tempUserDto.getProviderType();
     }
 }

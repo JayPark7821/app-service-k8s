@@ -19,8 +19,7 @@ public class AuthControllerImpl implements AuthController {
 
     @Override
     public ResponseEntity<ApiResponse<AuthResponseDto>> login(String provider, String idToken) {
-        ProviderType providerType = ProviderType.of(provider);
-        authService.login(providerType, idToken);
+        authService.login(provider, idToken);
         return null;
     }
 }

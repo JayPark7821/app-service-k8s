@@ -16,6 +16,6 @@ public interface FragranceController {
     FragranceDto getFragranceById(@PathVariable("id") Long id);
 
     @GetMapping("/all")
-    Page<FragranceDto> getAllFragrances(String fragranceName, String fragranceDesc, Pageable pageable);
+    Page<FragranceDto> searchFragrancesWithCondition(String fragranceName, String fragranceDesc, Pageable pageable);
 
 }

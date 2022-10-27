@@ -27,7 +27,7 @@ public class FragranceControllerImpl implements FragranceController {
     }
 
     @Override
-    public Page<FragranceDto> getAllFragrances(String fragranceName, String fragranceDesc, Pageable pageable) {
-        return fragranceService.getAllFragrances(fragranceName, fragranceDesc, pageable);
+    public Page<FragranceDto> searchFragrancesWithCondition(String fragranceName, String fragranceDesc, Pageable pageable) {
+        return fragranceService.searchFragrancesWithCondition(fragranceName, fragranceDesc, pageable);
     }
 }

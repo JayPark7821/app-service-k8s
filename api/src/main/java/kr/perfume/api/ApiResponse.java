@@ -1,7 +1,7 @@
-package kr.perfume.utils.http;
+package kr.perfume.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import kr.perfume.utils.enums.ErrorCode;
+
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,6 @@ public class ApiResponse<T> {
     private final String message;
     private final T data;
 
-    @Builder
     public ApiResponse(int code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -25,18 +24,4 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> success(T body) {
         return new ApiResponse<T>(HttpStatus.OK.value(), "OK", body);
     }
-
-    public static <T> ApiResponse<T> created(T body) {
-        return new ApiResponse<T>(HttpStatus.CREATED.value(), "CREATED", body);
-    }
-
-    public static <T> ApiResponse<T> fail(ErrorCode errorCode , T body) {
-        return new ApiResponse<T>(errorCode.getStatus().value(), errorCode.getMessage(), body);
-    }
-
-    public static <T> ApiResponse<T> fail(HttpStatus errorCode ,String message, T body) {
-        return new ApiResponse<T>(errorCode.value(), message, body);
-    }
-
-
 }

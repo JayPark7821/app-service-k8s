@@ -3,7 +3,7 @@ package kr.perfume.keywordservice.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.perfume.api.core.keyword.KeywordType;
+import kr.perfume.api.core.perfume.keyword.KeywordType;
 import kr.perfume.keywordservice.persistence.Keyword;
 
 import org.springframework.data.domain.Page;

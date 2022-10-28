@@ -1,24 +1,20 @@
-package kr.perfume.api.core.keyword;
+package kr.perfume.api.core.perfume.keyword;
 
+import kr.perfume.api.core.perfume.BaseItemDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class KeywordDto {
+public class KeywordDto extends BaseItemDto {
 
-    private Long id;
-    private String name;
-    private String description;
     private KeywordType keywordType;
+
 
     @Builder
     public KeywordDto(Long id, String name, String description, KeywordType keywordType) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+        super(id, name, description);
         this.keywordType = keywordType;
     }
 }

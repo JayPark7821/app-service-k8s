@@ -1,4 +1,4 @@
-package kr.perfume.api.core.keyword;
+package kr.perfume.api.core.perfume.keyword;
 
 public enum KeywordType {
     COLOR,

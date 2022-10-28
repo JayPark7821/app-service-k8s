@@ -2,7 +2,8 @@ package kr.perfume.fragranceservice.persistence;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import kr.perfume.api.core.fragrance.FragranceDto;
+import kr.perfume.api.core.perfume.BaseItemDto;
+import kr.perfume.api.core.perfume.fragrance.FragranceDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,7 +40,7 @@ public class Fragrance {
         this.description = description;
     }
 
-    public Fragrance(FragranceDto dto) {
+    public Fragrance(BaseItemDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();
         this.description = dto.getDescription();

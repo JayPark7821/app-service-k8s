@@ -1,8 +1,7 @@
 package kr.perfume.keywordservice.service;
 
-import kr.perfume.api.core.fragrance.FragranceDto;
-import kr.perfume.api.core.keyword.KeywordDto;
-import kr.perfume.api.core.keyword.KeywordType;
+import kr.perfume.api.core.perfume.keyword.KeywordDto;
+import kr.perfume.api.core.perfume.keyword.KeywordType;
 import kr.perfume.keywordservice.persistence.Keyword;
 import kr.perfume.keywordservice.repository.KeywordQueryRepository;
 import kr.perfume.keywordservice.repository.KeywordRepository;

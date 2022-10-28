@@ -2,9 +2,8 @@ package kr.perfume.keywordservice.persistence;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import kr.perfume.api.core.fragrance.FragranceDto;
-import kr.perfume.api.core.keyword.KeywordDto;
-import kr.perfume.api.core.keyword.KeywordType;
+import kr.perfume.api.core.perfume.keyword.KeywordDto;
+import kr.perfume.api.core.perfume.keyword.KeywordType;
 import lombok.*;
 
 import javax.persistence.*;

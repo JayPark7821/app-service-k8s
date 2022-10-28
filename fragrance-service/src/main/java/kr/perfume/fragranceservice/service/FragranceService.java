@@ -1,6 +1,7 @@
 package kr.perfume.fragranceservice.service;
 
-import kr.perfume.api.core.fragrance.FragranceDto;
+import kr.perfume.api.core.perfume.BaseItemDto;
+import kr.perfume.api.core.perfume.fragrance.FragranceDto;
 import kr.perfume.fragranceservice.persistence.Fragrance;
 import kr.perfume.fragranceservice.repository.FragranceQueryRepository;
 import kr.perfume.fragranceservice.repository.FragranceRepository;
@@ -18,7 +19,7 @@ public class FragranceService {
     private final FragranceRepository fragranceRepository;
     private final FragranceQueryRepository fragranceQueryRepository;
 
-    public FragranceDto saveFragrance(FragranceDto fragranceDto) {
+    public FragranceDto saveFragrance(BaseItemDto fragranceDto) {
         Fragrance savedFragrance = fragranceRepository.save(new Fragrance(fragranceDto));
         return savedFragrance.toDto();
     }

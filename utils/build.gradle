@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.guava:guava:28.2-jre'
+    implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'

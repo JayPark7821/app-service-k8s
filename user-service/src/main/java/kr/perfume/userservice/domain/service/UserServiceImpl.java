@@ -1,18 +1,25 @@
 package kr.perfume.userservice.domain.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.perfume.api.composite.auth.AuthResponseDto;
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
 import kr.perfume.api.core.enums.ProviderType;
+import kr.perfume.userservice.domain.PreJoinUser;
 import kr.perfume.userservice.domain.User;
 import kr.perfume.userservice.domain.UserInfo;
+import kr.perfume.userservice.domain.UserJoinCommand;
 import kr.perfume.userservice.domain.auth.TokenVerifier;
+import kr.perfume.userservice.domain.reader.PreJoinUserReader;
 import kr.perfume.userservice.domain.reader.UserReader;
+import kr.perfume.userservice.domain.sotre.PreJoinUserStore;
+import kr.perfume.userservice.domain.sotre.UserStore;
+import kr.perfume.userservice.infrastructure.auth.user.OAuth2UserInfo;
+import kr.perfume.utils.enums.ErrorCode;
 import kr.perfume.utils.exception.PerfumeApplicationException;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +29,9 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
 	private final UserReader userReader;
+	private final UserStore userStore;
+	private final PreJoinUserStore preJoinUserStore;
+	private final PreJoinUserReader preJoinUserReader;
 	private final TokenVerifier tokenVerifier;
 
 	@Override
@@ -38,9 +48,26 @@ public class UserServiceImpl implements UserService {
 		if (isUserJoinning(user, provider)) {
 			return genLoginUserDto(user.get());
 		} else {
-			TempUserDto tempUserDto = savePreJoinUser(userInfo, providerType);
-			return new AuthResponseDto(tempUserDto);
+			PreJoinUser preJoinUser = savePreJoinUser(userInfo, provider);
+			return new UserInfo.LoginInfo(preJoinUser);
 		}
+	}
+
+	@Override
+	public UserInfo.LoginInfo join(UserJoinCommand userJoinCommand) {
+		PreJoinUser preJoinUser = validateJoinParam(userJoinCommand);
+		User user = preJoinUser.toUser();
+
+		return genLoginUserDto(user);
+	}
+
+	private PreJoinUser validateJoinParam(UserJoinCommand userJoinCommand) {
+		if (userReader.findUserByEmail(userJoinCommand.getEmail()).isPresent()) {
+			throw new PerfumeApplicationException(ErrorCode.USER_ALREADY_JOINED);
+		}
+		return preJoinUserReader.findPreJoinUserByUuidAndEmail(
+				userJoinCommand.getPreJoinUserId(), userJoinCommand.getEmail())
+			.orElseThrow(() -> new PerfumeApplicationException(ErrorCode.INVALID_JOIN_DATA));
 	}
 
 	private UserInfo.LoginInfo genLoginUserDto(User loginUser) {
@@ -62,6 +89,21 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return true;
 		}
+	}
+
+	private PreJoinUser savePreJoinUser(OAuth2UserInfo userInfo, ProviderType providerType) {
+		LocalDateTime now = LocalDateTime.now();
+		String uuid = UUID.randomUUID().toString();
+		PreJoinUser user = new PreJoinUser(
+			uuid,
+			userInfo.getId(),
+			userInfo.getName(),
+			userInfo.getEmail(),
+			providerType,
+			userInfo.getImageUrl()
+		);
+
+		return preJoinUserStore.store(user);
 	}
 
 }

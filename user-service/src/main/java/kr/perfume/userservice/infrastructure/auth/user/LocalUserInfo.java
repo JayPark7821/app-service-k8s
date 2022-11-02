@@ -2,8 +2,6 @@ package kr.perfume.userservice.infrastructure.auth.user;
 
 import java.util.Map;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
-
 public class LocalUserInfo extends OAuth2UserInfo {
 
 	public LocalUserInfo(Map<String, Object> attributes) {

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
 import kr.perfume.api.core.enums.ProviderType;
 import kr.perfume.userservice.domain.auth.TokenVerifier;
+import kr.perfume.userservice.infrastructure.auth.user.OAuth2UserInfo;
 import kr.perfume.utils.enums.ErrorCode;
 import kr.perfume.utils.exception.PerfumeApplicationException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class TokenVerifierImpl implements TokenVerifier {
 		SocialTokenVerifier socialTokenVerifier = routeSocialVerifier(providerType);
 		return socialTokenVerifier.verifyToken(idToken);
 	}
-	
+
 	private SocialTokenVerifier routeSocialVerifier(ProviderType providerType) {
 		return socialTokenVerifierList.stream()
 			.filter(socialTokenVerifier -> socialTokenVerifier.support(providerType))

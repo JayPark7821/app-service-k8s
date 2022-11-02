@@ -2,8 +2,6 @@ package kr.perfume.userservice.infrastructure.auth.user;
 
 import java.util.Map;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
-
 public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
 	public GoogleOAuth2UserInfo(Map<String, Object> attributes) {

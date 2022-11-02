@@ -11,6 +11,7 @@ import kr.perfume.api.core.enums.ProviderType;
 import kr.perfume.api.core.user.UserApiController;
 import kr.perfume.api.core.user.UserDto;
 import kr.perfume.userservice.domain.UserInfo;
+import kr.perfume.userservice.domain.UserJoinCommand;
 import kr.perfume.userservice.domain.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 
@@ -33,13 +34,16 @@ public class UserApiControllerImpl implements UserApiController {
 	@Override
 	public ResponseEntity<ApiResponse<UserDto.LoginResponse>> login(String provider, String idToken) {
 		ProviderType providerType = ProviderType.of(provider);
-		userFacade.login(providerType, idToken);
-		return null;
+		UserInfo.LoginInfo loginInfo = userFacade.login(providerType, idToken);
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ApiResponse.success(loginInfo.toResponse()));
 	}
 
 	@Override
 	public ResponseEntity<ApiResponse<UserDto.LoginResponse>> join(UserDto.JoinRequest requestDto,
 		BindingResult bindingResult) {
+		UserJoinCommand userJoinCommand = new UserJoinCommand(requestDto);
+		userFacade.join(userJoinCommand);
 		return null;
 	}
 

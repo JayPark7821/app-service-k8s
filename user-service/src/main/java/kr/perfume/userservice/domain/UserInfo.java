@@ -75,6 +75,25 @@ public class UserInfo {
 			this.accessToken = accessToken;
 			this.refreshToken = refreshToken;
 		}
+
+		public LoginInfo(PreJoinUser user) {
+			this.tempUserId = getTempUserId();
+			this.email = user.getEmail();
+			this.name = user.getUsername();
+			this.providerType = user.getProviderType();
+			this.profileImage = user.getProfileImageUrl();
+		}
+
+		public UserDto.LoginResponse toResponse() {
+			return UserDto.LoginResponse.builder()
+				.userUuid(this.tempUserId)
+				.userToken(this.userToken)
+				.username(this.name)
+				.email(this.email)
+				.providerType(this.providerType)
+				.profileImageUrl(this.profileImage)
+				.build();
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 package kr.perfume.userservice.domain.auth;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
 import kr.perfume.api.core.enums.ProviderType;
+import kr.perfume.userservice.infrastructure.auth.user.OAuth2UserInfo;
 
 public interface TokenVerifier {
 

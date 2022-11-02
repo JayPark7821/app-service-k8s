@@ -2,8 +2,8 @@ package kr.perfume.userservice.infrastructure.auth;
 
 import org.springframework.stereotype.Component;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
 import kr.perfume.api.core.enums.ProviderType;
+import kr.perfume.userservice.infrastructure.auth.user.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

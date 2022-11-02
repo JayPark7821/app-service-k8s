@@ -65,7 +65,7 @@ public class UserDto {
 	public static class JoinRequest {
 		@Valid
 		@NotNull(message = "임시 유저ID는 필수 값입니다.")
-		private String tempUserId;
+		private String preJoinUserId;
 
 		@Valid
 		@NotNull(message = "사용자 이름은 필수 값입니다.")

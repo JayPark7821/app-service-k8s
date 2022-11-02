@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import kr.perfume.api.core.enums.ProviderType;
+import kr.perfume.api.core.enums.RoleType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +19,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "temp_user")
-public class TempUser {
+@Table(name = "prejoin_user")
+public class PreJoinUser {
 
 	@Id
-	@Column(name = "user_uuid")
-	private String userUuid;
+	@Column(name = "prejoinuser_id")
+	private String preJoinUserId;
 
 	@Column(name = "user_id", length = 64, unique = true)
 	@NotNull
@@ -49,13 +50,26 @@ public class TempUser {
 	private String profileImageUrl;
 
 	@Builder
-	public TempUser(String userUuid, String userId, String username, String email, ProviderType providerType,
+	public PreJoinUser(String preJoinUserId, String userId, String username, String email, ProviderType providerType,
 		String profileImageUrl) {
-		this.userUuid = userUuid;
+		this.preJoinUserId = preJoinUserId;
 		this.userId = userId;
 		this.username = username;
 		this.email = email;
 		this.providerType = providerType;
 		this.profileImageUrl = profileImageUrl;
 	}
+
+	public User toUser() {
+		return User.builder()
+			.userId(this.userId)
+			.username(this.username)
+			.email(this.email)
+			.emailVerifiedYn("Y")
+			.profileImageUrl(this.profileImageUrl)
+			.providerType(this.providerType)
+			.roleType(RoleType.USER)
+			.build();
+	}
+
 }

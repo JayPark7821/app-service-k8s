@@ -16,9 +16,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 
-import kr.perfume.api.composite.auth.OAuth2UserInfo;
 import kr.perfume.api.core.enums.ProviderType;
 import kr.perfume.userservice.infrastructure.auth.user.GoogleOAuth2UserInfo;
+import kr.perfume.userservice.infrastructure.auth.user.OAuth2UserInfo;
 import kr.perfume.utils.enums.ErrorCode;
 import kr.perfume.utils.exception.PerfumeApplicationException;
 import lombok.RequiredArgsConstructor;

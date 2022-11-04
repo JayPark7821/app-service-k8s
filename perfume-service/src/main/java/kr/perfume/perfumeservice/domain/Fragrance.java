@@ -1,4 +1,4 @@
-package kr.perfume.fragranceservice.persistence;
+package kr.perfume.perfumeservice.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
